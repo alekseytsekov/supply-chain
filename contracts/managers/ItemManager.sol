@@ -15,6 +15,12 @@ contract ItemManager {
         _;
     }
 
+    function init() public {
+        require(owner == address(0), "Already has owner");
+
+        owner = msg.sender;
+    }
+
     function createRepo(bytes32 _client, address _worker) public onlyOwner returns (address _repo){
         clientRepo[_client] = new ItemRepo();
         clientRepo[_client].init(address(this));

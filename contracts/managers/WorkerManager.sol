@@ -15,6 +15,12 @@ contract WorkerManager {
         _;
     }
 
+    function init() public {
+        require(owner == address(0), "Already has owner");
+
+        owner = msg.sender;
+    }
+
     function createWorker(bytes32 _workerName) public onlyOwner returns(address _workerAddress){
         workers[_workerName] = new Worker();
         workers[_workerName].init(msg.sender, _workerName);
